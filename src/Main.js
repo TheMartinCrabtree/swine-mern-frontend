@@ -5,7 +5,7 @@ const Main=()=>{
     let charFormat = { 
         name_first: "",
         name_family: "",
-        age: null,
+        age: 0,
     };
 
     const [ characterArr, setCharacterArr ] = useState([]);
@@ -19,17 +19,35 @@ const Main=()=>{
 
     // }, [])
     const handleFormOnChange=(event)=>{
-        event.preventDefault();
         console.log("updating formCharacter", formCharacter)
 
-        const {name, defaultValue} = event.target;
-        setFormCharacter({...formCharacter, [name]: defaultValue});
+        const {name, value} = event.target;
+        console.log("name:", name);
+        console.log("defvalue", value);
+        return setFormCharacter({...formCharacter, [name]: value});
     }
+
+    const handleOnSubmit=(event)=>{
+        event.preventDefault();
+        console.log("submitting character");
+
+        return fetch("http://localhost:3003/api/character", {
+            method: "POST",
+            body: JSON.stringify(formCharacter),
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(response => response.json())
+        .then(characterData=>{
+            console.log("returned data from fetch: ", characterData);
+        });
+    };
 
     return(
         <main>
             <h3> This is Main </h3>
-            <form>
+            <form onSubmit={handleOnSubmit} >
                 <div>
                     <label htmlFor="name_first" > First Name: </label>
                     <input 
@@ -37,7 +55,7 @@ const Main=()=>{
                         id="name_first" 
                         name="name_first" 
                         size="20"
-                        defaultValue={ formCharacter.name_first }
+                        value={ formCharacter.name_first }
                         onChange={handleFormOnChange} />
                 </div>
                 <div>
@@ -47,7 +65,7 @@ const Main=()=>{
                         id="name_family" 
                         name="name_family" 
                         size="20"
-                        defaultValue={ formCharacter.name_family }
+                        value={ formCharacter.name_family }
                         onChange={handleFormOnChange} />
                 </div>
                 <div>
@@ -59,7 +77,7 @@ const Main=()=>{
                         size="3" 
                         min="1" 
                         max="100"
-                        defaultValue={ formCharacter.age }
+                        value={ formCharacter.age }
                         onChange={handleFormOnChange} />
                 </div>
 
