@@ -19,7 +19,11 @@ const Main=()=>{
 
     // }, [])
     const handleFormOnChange=(event)=>{
-        
+        event.preventDefault();
+        console.log("updating formCharacter", formCharacter)
+
+        const {name, defaultValue} = event.target;
+        setFormCharacter({...formCharacter, [name]: defaultValue});
     }
 
     return(
@@ -27,25 +31,27 @@ const Main=()=>{
             <h3> This is Main </h3>
             <form>
                 <div>
-                    <label for="name_first" > First Name: </label>
+                    <label htmlFor="name_first" > First Name: </label>
                     <input 
                         type="text" 
                         id="name_first" 
                         name="name_first" 
                         size="20"
-                        defaultValue={ formCharacter.name_first } />
+                        defaultValue={ formCharacter.name_first }
+                        onChange={handleFormOnChange} />
                 </div>
                 <div>
-                    <label for="name_family" > Family Name: </label>
+                    <label htmlFor="name_family" > Family Name: </label>
                     <input 
                         type="text" 
                         id="name_family" 
                         name="name_family" 
                         size="20"
-                        defaultValue={ formCharacter.name_family } />
+                        defaultValue={ formCharacter.name_family }
+                        onChange={handleFormOnChange} />
                 </div>
                 <div>
-                    <label for="age" > Age: </label>
+                    <label htmlFor="age" > Age: </label>
                     <input 
                         type="number" 
                         id="age" 
@@ -53,7 +59,8 @@ const Main=()=>{
                         size="3" 
                         min="1" 
                         max="100"
-                        defaultValue={ formCharacter.age } />
+                        defaultValue={ formCharacter.age }
+                        onChange={handleFormOnChange} />
                 </div>
 
                 <input type="submit" />
