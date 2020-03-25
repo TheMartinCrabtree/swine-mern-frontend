@@ -11,13 +11,15 @@ const Main=()=>{
     const [ characterArr, setCharacterArr ] = useState([]);
     const [ formCharacter, setFormCharacter ] = useState(charFormat);
 
-    // useEffect(()=>{
-    //     fetch("http://localhost:3003/api/characters")
-    //         .then(response=>response.json())
-    //         .then(json=>console.log(json));
+    useEffect(()=>{
+        
+        fetch("http://localhost:3003/api/characters")
+            .then(response=>response.json())
+            .then(json=>setCharacterArr(json.data));
 
 
-    // }, [])
+    }, []);
+
     const handleFormOnChange=(event)=>{
         console.log("updating formCharacter", formCharacter)
 
@@ -83,6 +85,13 @@ const Main=()=>{
 
                 <input type="submit" />
             </form>
+
+            <section>
+                <h4>Current Characters:</h4>
+                <ul>
+                    
+                </ul>
+            </section>
         </main>
     );
 };
