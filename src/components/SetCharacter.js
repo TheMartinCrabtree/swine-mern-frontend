@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 const SetCharacter=()=>{
+    
     let charFormat = { 
         name_first: "",
         name_family: "",
         age: 0,
     };
 
-    const [ characterArr, setCharacterArr ] = useState([]);
     const [ formCharacter, setFormCharacter ] = useState(charFormat);
-
-    useEffect(()=>{
-        
-        fetch("http://localhost:3003/api/characters")
-            .then(response=>response.json())
-            .then(json=>setCharacterArr(json.data));
-    }, []);
 
     const handleFormOnChange=(event)=>{
         console.log("updating formCharacter", formCharacter)
